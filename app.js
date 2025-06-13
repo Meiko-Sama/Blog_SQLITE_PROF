@@ -132,7 +132,7 @@ app.post("/cadastro", (req, res) => {
   };
   
   const checkUserQuery = "SELECT * FROM users WHERE username = ? OR email = ";
-  dbget(checkUserQuery, [username, email], (err, row) => {
+  db.get(checkUserQuery, [username, email], (err, row) => {
     if(err) {
       console.error("Erro ao consultar o banco (verificar usuário):", err.message);
 
@@ -141,43 +141,43 @@ app.post("/cadastro", (req, res) => {
         message: "Erro interno do servidor ao verificar usuário",
       })
     }
-  })
 
-  console.log("Resultado da consulta de usuário existente:", row);
+    console.log("Resultado da consulta de usuário existente:", row);
 
     if (row) {
-     let conflicField = "";
-     if (row.username == username) {
-       conflicField = "Nome de Usuário";
-     } else if (row.email === email){
-       conflicField = "Email"
+      let conflictField = "";
+      if (row.username == username) {
+        conflictField = "Nome de Usuário";
+      } else if (row.email === email){
+        conflictField = "Email"
+      }
+      return res.status(409).json({
+       sucess: false,
+       message: `${conflictField} já cadastrado. Por favor, escolha outro.`,
+      })
+     } else {
+ 
+       const insertQuery =
+         "INSERT INTO users (username, password, email, celular, cpf, rg) VALUES (?,?,?,?,?,?)";
+      
+         db.run(
+         insertQuery,
+         [username, password, email, celular, cpf, rg],
+         function (err) {
+           // Inserir a lógica do INSERT
+           if (err) {
+             console.error("Erro ao inserir usuário no banco:", err.message)
+             return res.status(500).json({
+               sucess: false,
+               
+             })
+           }
+           res.redirect("/login");
+         }
+       );
      }
-     return res.status(409).json({
-      sucess: false,
-      message: `${conflicField} já cadastrado. Por favor, escolha outro.`,
-     })
-    } else {
-
-      const insertQuery =
-        "INSERT INTO users (username, password, email, celular, cpf, rg) VALUES (?,?,?,?,?,?)";
-     
-        db.run(
-        insertQuery,
-        [username, password, email, celular, cpf, rg],
-        function (err) {
-          // Inserir a lógica do INSERT
-          if (err) {
-            console.error("Erro ao inserir usuário no banco:", err.message)
-            return res.status(500).json({
-              sucess: false,
-
-            })
-          }
-          res.redirect("/login");
-        }
-      );
-    }
-  });
+   });
+  })
 
 
 // Pregramação de rotas do método GET do HTTP 'app.get()'
