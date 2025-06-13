@@ -18,6 +18,7 @@ const createDisplayMsgError = (mensagem) => {
     msgErrorElements[0].style.display = mensagem ? "block" : "none"; // Mostrar/ocultar
   }
 };
+
 /* --------------------------------------------------------------------- */
 
 /* ---------------- FUNÇÃO PARA VERIFICAR O NOME ----------------------- */
@@ -31,23 +32,19 @@ const checkNome = () => {
 const checkEmail = (email) => {
   const partesEmail = email.split("@");
 
-  if (
-    (partesEmail.length === 2 &&
-      partesEmail[1].toLowerCase() === "gmail.com") ||
-    (partesEmail.length === 2 &&
-      partesEmail[1].toLowerCase() === "outlook.com") ||
-    (partesEmail.length === 2 && partesEmail[1].toLowerCase() === "hotmail.com")
-  ) {
-    return true;
-  } else {
-    return false;
-  }
+  if ( partesEmail.length === 2) {
+      const domain = partesEmail[1].toLowerCase();
+      const allowedDomains = ["gmail.com", "outlook.com", "hotmail.com", "icloud.com", "yahoo.com"];
+
+      return true;
+    }
+   return false;
 };
 /* --------------------------------------------------------------------- */
 
 /* ---------- FUNÇÃO PARA VERIFICAR IGUALDADE DAS SENHAS --------------- */
 function checkPasswordMatch() {
-  return senha.value === confirmarSenha.value ? true : false;
+  return senha.value === confirmarSenha.value;
 }
 /* --------------------------------------------------------------------- */
 
@@ -56,8 +53,9 @@ function checkPasswordMatch() {
 function maskPhoneNumber(event) {
   let celular = event.target.value;
 
-  if (/[A-Za-zÀ-ÿ]/.test(celular)) {
+  if (/[A-Za-zÀ-ÿ]/.test(celularValue)) {
     createDisplayMsgError("O celular deve conter apenas números!");
+    celularValue = event.target
   } else {
     createDisplayMsgError("");
   }

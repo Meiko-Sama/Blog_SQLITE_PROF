@@ -148,6 +148,7 @@ app.post("/cadastro", (req, res) => {
       let conflictField = "";
       if (row.username === username) {
         conflictField = "Nome de Usuário";
+
       } else if (row.email === email){
         conflictField = "Email"
       }
@@ -169,10 +170,17 @@ app.post("/cadastro", (req, res) => {
              console.error("Erro ao inserir usuário no banco:", err.message)
              return res.status(500).json({
                sucess: false,
+               message: "Erro interno do servidor ao cadastrar usuário"
 
-             })
+             });
            }
-           res.redirect("/login");
+            console.log(`Usuário ${username} cadastrado com ID: ${this.lastID}`)
+
+            return res.status(201).json({
+              sucess: true,
+              message: "Usuário cadastrado com sucesso!",
+              userId: this.lastID, 
+            });
          }
        );
      }
