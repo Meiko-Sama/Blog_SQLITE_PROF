@@ -131,7 +131,7 @@ app.post("/cadastro", (req, res) => {
     return res.status(400).json({sucess: false, message: "Formato de email inválido"})
   };
   
-  const checkUserQuery = "SELECT * FROM users WHERE username = ? OR email = ";
+  const checkUserQuery = "SELECT * FROM users WHERE username = ? OR email = ?";
   db.get(checkUserQuery, [username, email], (err, row) => {
     if(err) {
       console.error("Erro ao consultar o banco (verificar usuário):", err.message);
@@ -139,14 +139,14 @@ app.post("/cadastro", (req, res) => {
       return res.status(500).json({
         sucess: false,
         message: "Erro interno do servidor ao verificar usuário",
-      })
+      });
     }
 
     console.log("Resultado da consulta de usuário existente:", row);
 
     if (row) {
       let conflictField = "";
-      if (row.username == username) {
+      if (row.username === username) {
         conflictField = "Nome de Usuário";
       } else if (row.email === email){
         conflictField = "Email"
@@ -169,7 +169,7 @@ app.post("/cadastro", (req, res) => {
              console.error("Erro ao inserir usuário no banco:", err.message)
              return res.status(500).json({
                sucess: false,
-               
+
              })
            }
            res.redirect("/login");
