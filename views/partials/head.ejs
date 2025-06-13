@@ -1,0 +1,14 @@
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>
+    <%- titulo && req.session.loggedin ? req.session.username.toUpperCase()+ '@'
+    + titulo : titulo %>
+  </title>
+
+  <!-- LINK PARA CSS EXTERNO -->
+  <link rel="stylesheet" href="/static/styles/styles.css" />
+
+  <!-- LINK PARA JS EXTERNO -->
+  <script src="/static/scripts/validaCadastro.js" defer></script>
+</head>

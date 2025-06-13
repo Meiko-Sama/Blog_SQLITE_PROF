@@ -1,0 +1,24 @@
+<% console.log(`${JSON.stringify(req.session)}`); %>
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<%- include("../partials/head"); %>
+
+<body>
+  <%- include("../partials/menu"); %>
+  <section class="container" style="overflow: visible;">
+    <div class="image_container">
+      <h1>Sobre nossa empresa</h1>
+      <p>
+        Compartilhe suas aventuras e <br />
+        descubra novos lugares ao redor do mundo!
+      </p>
+    </div>
+    <div style="font-size: 24px; overflow: visible;">
+      <%- include("../partials/usertable"); %>
+    </div>
+  </section>
+  <%- include("../partials/footer") %>
+</body>
+
+</html>

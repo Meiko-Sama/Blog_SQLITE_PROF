@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <%- console.log("EJS render fail.ejs:", msg) %> <%-
+  include("../partials/head"); %>
+
+  <body>
+    <%- include("../partials/menu") %>
+
+    <div class="container_rain">
+      <span class="cloud"></span>
+      <span class="cloud"></span>
+      <span class="cloud"></span>
+    </div>
+
+    <section class="container">
+      <% console.log("Status: ", req.status) %> <% if(msg=="404") { %>
+      <img src="/static/images/404_2.png" width="100%" height="100%" />
+      <img src="/static/images/404_1.avif" width="100%" height="100%" />
+      <% } else { %>
+      <h1><%- msg %></h1>
+      <% } %>
+    </section>
+
+    <%- include("../partials/footer") %>
+  </body>
+</html>

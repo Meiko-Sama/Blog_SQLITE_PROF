@@ -1,0 +1,19 @@
+<header>
+  <a href="" class="logo"><%= req.session.username %></a>
+  <nav>
+    <a href="/">Home</a>
+    <a href="/sobre">Sobre</a>
+
+    <% if (req.session.loggedin) { %>
+
+    <a href="/dashboard">Dashboard</a>
+    <a href="/logout">Logout</a>
+
+    <% } else { %>
+
+    <a href="/cadastro">Cadastro</a>
+    <a href="/login">Login</a>
+
+    <% } %>
+  </nav>
+</header>

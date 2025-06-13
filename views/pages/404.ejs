@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<%- console.log(titulo) %> <%- include("../partials/head"); %>
+
+<body>
+  <%# if (condition) { %> <%# } %> <%# Este é um comentário em EJS %>
+
+  <!-- <header>
+      <a href="" class="logo">LOGO</a>
+      <nav>
+        <a href="">Home</a>
+        <a href="/sobre">Sobre</a>
+        <a href="/cadastro">Cadastro</a>
+        <a href="/login">Login</a>
+        <a href="/foradecasa">Luganenhum</a>
+      </nav>
+    </header> -->
+
+  <%- include("../partials/menu") %>
+
+  <div class="container_rain">
+    <span class="cloud"></span>
+    <span class="cloud"></span>
+    <span class="cloud"></span>
+  </div>
+
+  <section class="container">
+    <img src="/static/images/404.avif" width="100%" height="100%" />
+    <img src="/static/images/404_1.avif" width="100%" height="100%" />
+  </section>
+
+  <%- include("../partials/footer") %>
+</body>
+
+</html>
